@@ -1,7 +1,7 @@
 package Matrices;
 
 public class Depuracion {
-	private static boolean DEPURACION=false;
+	private static boolean DEPURACION=true;
 	
 	public static void imprimirTraza(String mensaje) {
 		if(DEPURACION==true)

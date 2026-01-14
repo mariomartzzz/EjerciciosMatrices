@@ -19,6 +19,7 @@ public class App {
 			Matrices.sumaMatrices();
 			break;
 		case 2:
+			Matrices.multiplicarMatrices();
 			break;
 		default:
 			System.out.println("Saliendo de la aplicación...");
