@@ -4,13 +4,23 @@ import java.util.Scanner;
 
 public class Matrices {
 	Scanner t = new Scanner(System.in);
-	// public static boolean DEPURACION = false;
 
-	private static int[][] crearMatriz(int filas, int columnas, int vMin, int vMax) {
+	private static int[][] crearMatrizAleatoria(int filas, int columnas, int vMin, int vMax) {
 		int matriz[][] = new int[filas][columnas];
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz[i].length; j++) {
 				matriz[i][j] = numeroAleatorio(vMin, vMax);
+			}
+		}
+		Depuracion.imprimirTraza(toString(matriz));
+		return matriz;
+	}
+
+	private static int[][] crearMatriz(int filas, int columnas) {
+		int matriz[][] = new int[filas][columnas];
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				matriz[i][j] = 0;
 			}
 		}
 		Depuracion.imprimirTraza(toString(matriz));
@@ -46,7 +56,7 @@ public class Matrices {
 		}
 	}
 
-	public static void sumaMatrices() throws Exception {
+	public static int[][] sumaMatrices() throws Exception {
 
 		Scanner t = new Scanner(System.in);
 
@@ -60,8 +70,8 @@ public class Matrices {
 		System.out.println("Introduce el número de columnas de la segunda matriz");
 		columnas2 = t.nextInt();
 		if (filas1 == filas2 && columnas1 == columnas2) {
-			int[][] matriz1 = crearMatriz(filas1, columnas1, 0, 9);
-			int[][] matriz2 = crearMatriz(filas2, columnas2, 0, 9);
+			int[][] matriz1 = crearMatrizAleatoria(filas1, columnas1, 0, 9);
+			int[][] matriz2 = crearMatrizAleatoria(filas2, columnas2, 0, 9);
 			int filas = matriz1.length;
 			int columnas = matriz1[0].length;
 
@@ -78,12 +88,13 @@ public class Matrices {
 			imprimirMatriz(matriz2);
 			System.out.println("=");
 			imprimirMatriz(resultado);
+			return resultado;
 		} else
 			throw new Exception("Las dimansiones de las matrices han de ser iguales.");
 
 	}
 
-	public static void multiplicarMatrices() throws Exception {
+	public static int[][] multiplicarMatrices() throws Exception {
 		Scanner t = new Scanner(System.in);
 
 		int filas1, columnas1, filas2, columnas2;
@@ -96,18 +107,16 @@ public class Matrices {
 		System.out.println("Introduce el número de columnas de la segunda matriz");
 		columnas2 = t.nextInt();
 		if (columnas1 == filas2) {
-			int[][] matriz1 = crearMatriz(filas1, columnas1, 0, 9);
-			int[][] matriz2 = crearMatriz(filas2, columnas2, 0, 9);
-			Depuracion.imprimirTraza(toString(matriz1));
-			Depuracion.imprimirTraza(toString(matriz2));
+			int[][] matriz1 = crearMatrizAleatoria(filas1, columnas1, 0, 9);
+			int[][] matriz2 = crearMatrizAleatoria(filas2, columnas2, 0, 9);
 			int filas = matriz1.length;
 			int columnas = matriz2[0].length;
 
 			int[][] resultado = new int[filas][columnas];
 
-			for (int i = 0; i < matriz1.length; i++) { // Recorre filas de A
-				for (int j = 0; j < matriz2[0].length; j++) { // Recorre columnas de B
-					for (int k = 0; k < matriz1[0].length; k++) { // Recorre el factor común (n)
+			for (int i = 0; i < matriz1.length; i++) {
+				for (int j = 0; j < matriz2[0].length; j++) {
+					for (int k = 0; k < matriz1[0].length; k++) {
 						resultado[i][j] += matriz1[i][k] * matriz2[k][j];
 
 					}
@@ -119,9 +128,47 @@ public class Matrices {
 			imprimirMatriz(matriz2);
 			System.out.println("=");
 			imprimirMatriz(resultado);
-
+			return resultado;
 		} else
-			throw new Exception("El número de columnas de la primera matriz ha de ser igual al numero de filas de la segunda.");
+			throw new Exception(
+					"El número de columnas de la primera matriz ha de ser igual al numero de filas de la segunda.");
+	}
+
+	public static void random() {
+		Scanner t = new Scanner(System.in);
+
+		int filas, columnas;
+		System.out.println("Introduce el número de filas de la primera matriz");
+		filas = t.nextInt();
+		System.out.println("Introduce el número de columnas de la primera matriz");
+		columnas = t.nextInt();
+		int[][] matriz = crearMatriz(filas, columnas);
+		imprimirMatriz(matriz);
+		int posiciones = getNumeros(matriz);
+		System.out.println("Introduce un numero del 0 al 100");
+		int numero = t.nextInt();
+		
+
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				if ((int) (Math.random()*100) > numero) {
+					matriz[i][j] = 1;
+
+				}
+			}
+		}
+		imprimirMatriz(matriz);
+	}
+
+	private static int getNumeros(int[][] matriz) {
+		int posiciones = 0;
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				posiciones++;
+			}
+		}
+		Depuracion.imprimirTraza("El numero de posiciones de la matriz es " + posiciones);
+		return posiciones;
 	}
 
 }

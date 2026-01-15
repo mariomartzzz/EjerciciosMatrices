@@ -12,6 +12,7 @@ public class App {
 		System.out.println();
 		System.out.println("1) Sumar Matrices.");
 		System.out.println("2) Multiplicar Matrices.");
+		System.out.println("3) Matriz random.");
 		System.out.println("Otra opción: salir.");
 		opcion= teclado.nextInt();
 		switch (opcion) {
@@ -21,11 +22,14 @@ public class App {
 		case 2:
 			Matrices.multiplicarMatrices();
 			break;
+		case 3:
+			Matrices.random();
+			break;
 		default:
 			System.out.println("Saliendo de la aplicación...");
 		}
 		
-		}while (opcion>0 && opcion<3);
+		}while (opcion>0 && opcion<4);
 
 	}
 	
